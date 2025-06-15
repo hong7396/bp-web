@@ -21,6 +21,18 @@ def get_ngrok_url():
 def home():
     return render_template("index.html")
 
+@app.route("/heat")
+def heat():
+    return render_template("heat.html")
+
+@app.route("/optics")
+def heat():
+    return render_template("optics.html")
+
+@app.route("/imaging")
+def heat():
+    return render_template("imaging.html")
+
 if __name__ == "__main__":
     print("✅ Flask server is running")
     print("🌐 Public access URL:", get_ngrok_url())
