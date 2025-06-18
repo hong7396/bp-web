@@ -36,10 +36,17 @@
     <div class="flex h-[70vh] min-h-[500px]">
       <aside class="w-64 bg-gray-100 border-r border-gray-200 flex flex-col items-center py-8 px-4 custom-scroll overflow-y-auto">
         <h2 class="text-2xl font-bold text-blue-600 mb-6">Menu</h2>
-        <div class="flex flex-col w-full space-y-3">
+        <div class="flex flex-col w-full space-y-3"> 
           <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="snell">snell's law</button>
-          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="a">a</button>
-          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="b">b</button>
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="critical">critical angle</button>
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="thin">thin lens</button>
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="magnification">lateral magnification</button>
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="two_thin">two thin lens</button>
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="newtonian">newtonian form</button>
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="lens_maker">lens maker's equation</button>
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="fov">field of view</button>
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="F_number">F number</button>
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="depth">depth of field</button>
         </div>
       </aside>
 
@@ -52,29 +59,48 @@
   <script>
     const calculators = {
       snell: `
-        <section class='bg-blue-50 p-6 md:p-8 flex flex-col items-center justify-start rounded-lg shadow-md max-w-md w-full'>
-          <div class='text-center mb-4'>
-            <div class='text-xl font-semibold text-gray-700 mb-1'>n₁ · sin(θ₁) = n₂ · sin(θ₂)</div>
-            <h2 class='text-2xl font-bold text-blue-800'>Snell's Law 계산기</h2>
+        <section class='bg-blue-50 p-6 md:p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+          <div class='text-center mb-3'>
+            <div class='text-lg font-semibold text-gray-700 mb-1'>n₁ · sin(θ₁) = n₂ · sin(θ₂)</div>
+            <h2 class='text-xl font-bold text-blue-800'>Snell's Law 계산기</h2>
           </div>
-          <img src="/static/images/optics/snell.png" alt="Snell Law Diagram" class="mb-4 rounded shadow-md w-full max-w-xs">
-          <label class='block mb-2 text-gray-700 font-medium'>어떤 값을 계산할까요?</label>
-          <select id='target' class='w-full mb-4 px-4 py-2 rounded border border-gray-300 focus:ring-2 focus:ring-blue-400'>
+          <img src="/static/images/optics/snell.png" alt="Snell Law Diagram" class="mb-3 rounded shadow-md w-full max-w-xs">
+          <label class='block mb-2 text-gray-700 font-medium text-sm'>어떤 값을 계산할까요?</label>
+          <select id='target' class='w-full mb-3 px-3 py-1.5 rounded border border-gray-300 text-sm focus:ring-2 focus:ring-blue-400'>
             <option value='n1'>n₁ (입사쪽 굴절률)</option>
             <option value='n2'>n₂ (굴절쪽 굴절률)</option>
             <option value='theta1'>θ₁ (입사각, 도)</option>
             <option value='theta2'>θ₂ (굴절각, 도)</option>
           </select>
-          <input id='n1' type='number' step='any' placeholder='n₁ 입력' class='mb-2 w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-400'>
-          <input id='n2' type='number' step='any' placeholder='n₂ 입력' class='mb-2 w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-400'>
-          <input id='theta1' type='number' step='any' placeholder='θ₁ 입력 (도)' class='mb-2 w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-400'>
-          <input id='theta2' type='number' step='any' placeholder='θ₂ 입력 (도)' class='mb-4 w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-400'>
-          <button onclick='calcSnell()' class='bg-blue-600 text-white px-6 py-2 rounded font-semibold hover:bg-blue-700 transition'>계산하기</button>
-          <div id='snell-result' class='mt-4 text-lg font-medium text-gray-800'></div>
+          <input id='n1' type='number' step='any' placeholder='n₁ 입력' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-blue-400'>
+          <input id='n2' type='number' step='any' placeholder='n₂ 입력' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-blue-400'>
+          <input id='theta1' type='number' step='any' placeholder='θ₁ 입력 (도)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-blue-400'>
+          <input id='theta2' type='number' step='any' placeholder='θ₂ 입력 (도)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-blue-400'>
+          <button onclick='calcSnell()' class='bg-blue-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-blue-700 transition'>계산하기</button>
+          <div id='snell-result' class='mt-3 text-base font-medium text-gray-800'></div>
         </section>
       `,
-      a: `<div class='text-2xl text-gray-700 font-bold'>a 계산기 준비 중입니다.</div>`,
-      b: `<div class='text-2xl text-gray-700 font-bold'>b 계산기 준비 중입니다.</div>`
+      critical: `
+        <section class='bg-green-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+          <div class='text-center mb-3'>
+            <div class='text-lg font-semibold text-gray-700 mb-1'>θ_c = sin⁻¹(n₂ / n₁)</div>
+            <h2 class='text-xl font-bold text-green-800'>임계각 계산기</h2>
+          </div>
+          <img src="/static/images/optics/critical_angle.png" alt="Critical Angle Diagram" class="mb-3 rounded shadow-md w-full max-w-xs">
+          <input id='cri_n1' type='number' step='any' placeholder='n₁ (고굴절)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-green-400'>
+          <input id='cri_n2' type='number' step='any' placeholder='n₂ (저굴절)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-green-400'>
+          <button onclick='calcCriticalAngle()' class='bg-green-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-green-700 transition'>계산하기</button>
+          <div id='critical-result' class='mt-3 text-base font-medium text-gray-800'></div>
+        </section>
+      `,
+      thin: `<div class='text-2xl text-gray-700 font-bold'>a 계산기 준비 중입니다.</div>`,
+      magnification: `<div class='text-2xl text-gray-700 font-bold'>b 계산기 준비 중입니다.</div>`,
+      two_thin: `<div class='text-2xl text-gray-700 font-bold'>a 계산기 준비 중입니다.</div>`,
+      newtonian: `<div class='text-2xl text-gray-700 font-bold'>a 계산기 준비 중입니다.</div>`,
+      lens_maker: `<div class='text-2xl text-gray-700 font-bold'>a 계산기 준비 중입니다.</div>`,
+      fov: `<div class='text-2xl text-gray-700 font-bold'>a 계산기 준비 중입니다.</div>`,
+      F_number: `<div class='text-2xl text-gray-700 font-bold'>a 계산기 준비 중입니다.</div>`,
+      depth: `<div class='text-2xl text-gray-700 font-bold'>a 계산기 준비 중입니다.</div>`
     };
 
     document.querySelectorAll(".menu-button").forEach(btn => {
@@ -125,6 +151,21 @@
       }
 
       document.getElementById("snell-result").innerText = result;
+    }
+
+    function calcCriticalAngle() {
+      const n1 = parseFloat(document.getElementById("cri_n1").value);
+      const n2 = parseFloat(document.getElementById("cri_n2").value);
+      let result = '';
+      try {
+        if (isNaN(n1) || isNaN(n2)) throw "값을 모두 입력하세요.";
+        if (n1 <= n2) throw "전반사 조건이 아닙니다. (n₁ > n₂ 여야 함)";
+        const thetaC = Math.asin(n2 / n1) * (180 / Math.PI);
+        result = `임계각 θc: ${thetaC.toFixed(2)}°`;
+      } catch (e) {
+        result = `❌ 오류: ${e}`;
+      }
+      document.getElementById("critical-result").innerText = result;
     }
   </script>
 </body>
