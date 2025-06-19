@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Physics Menu Prototype</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;500;400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f7faf9;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 8px;
+      background: #e5e7eb;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#f7faf9]">
+  <nav class="w-full border-b border-gray-300 bg-white">
+    <div class="max-w-7xl mx-auto flex items-center h-14 px-6">
+      <div class="flex space-x-8">
+        <a href="https://11f1-211-208-7-84.ngrok-free.app/heat" target="_blank" class="text-gray-900 font-medium text-lg px-2 py-1 hover:text-white hover:bg-blue-500 rounded transition">열전달</a>
+        <a href="https://11f1-211-208-7-84.ngrok-free.app/optics" target="_blank" class="text-gray-900 font-medium text-lg px-2 py-1 hover:text-white hover:bg-blue-500 rounded transition">광학</a>
+        <a href="https://11f1-211-208-7-84.ngrok-free.app/imaging" target="_blank" class="text-gray-900 font-medium text-lg px-2 py-1 hover:text-white hover:bg-blue-500 rounded transition">영상학</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto mt-6 border border-gray-400 rounded-lg bg-white shadow-sm overflow-hidden">
+    <div class="flex h-[70vh] min-h-[500px]">
+      <aside class="w-64 bg-gray-100 border-r border-gray-200 flex flex-col items-center py-8 px-4 custom-scroll overflow-y-auto">
+        <h2 class="text-2xl font-bold text-blue-600 mb-6">Menu</h2>
+        <div class="flex flex-col w-full space-y-3"> 
+  <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="finA">Fin A</button>
+  <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="finB">Fin B</button>
+  <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="finC">Fin C</button>
+  <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="finD">Fin D</button>
+  <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="shape1">Shape Factor 1</button>
+  <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="shape2">Shape Factor 2</button>
+  <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="shape3">Shape Factor 3</button>
+  <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="shape4">Shape Factor 4</button>
+  <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="shape5">Shape Factor 5</button>
+  <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="shape6">Shape Factor 6</button>
+  <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="shape7">Shape Factor 7</button>
+  <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="shape8">Shape Factor 8</button>
+  <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="shape9">Shape Factor 9</button>
+  <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="shape10">Shape Factor 10</button>
+  <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="shape11">Shape Factor 11</button>
+</div>
+
+      </aside>
+
+      <section id="content-area" class="flex-1 bg-gray-50 p-10 flex items-center justify-center">
+        <div class="text-gray-400 text-xl font-medium">메뉴를 선택해주세요</div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const calculators = {
+  finA: `
+<section class='bg-yellow-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+  <div class='text-center mb-3'>
+    <h2 class='text-xl font-bold text-yellow-800'>Fin A 계산기</h2>
+    <p class='text-sm text-gray-600'>Convective Fin (Type A) 열전달량 계산</p>
+  </div>
+  <img src="/static/images/heat/fin.png" alt="Fin" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <img src="/static/images/heat/finA.png" alt="FinA" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <input id='finA_h' type='number' step='any' placeholder='대류계수 h (W/m²·K)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finA_k' type='number' step='any' placeholder='전도율 k (W/m·K)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finA_P' type='number' step='any' placeholder='핀의 둘레 P (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finA_Ac' type='number' step='any' placeholder='핀의 단면적 Aₙ (m²)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finA_L' type='number' step='any' placeholder='핀의 길이 L (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finA_Tb' type='number' step='any' placeholder='기저 온도 T_b (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finA_Tinf' type='number' step='any' placeholder='주위 온도 T_∞ (°C)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <button onclick='calcFinA()' class='bg-yellow-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-yellow-700 transition'>계산하기</button>
+  <div id='finA-result' class='mt-3 text-base font-medium text-gray-800'></div>
+</section>
+`,
+
+  finB: `
+<section class='bg-yellow-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+  <div class='text-center mb-3'>
+    <h2 class='text-xl font-bold text-yellow-800'>Fin B 계산기</h2>
+    <p class='text-sm text-gray-600'>절연단 (Adiabatic Tip) 핀의 열전달량 계산</p>
+  </div>
+  <img src="/static/images/heat/fin.png" alt="Fin" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <img src="/static/images/heat/finB.png" alt="FinB" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <input id='finB_h' type='number' step='any' placeholder='대류계수 h (W/m²·K)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finB_k' type='number' step='any' placeholder='전도율 k (W/m·K)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finB_P' type='number' step='any' placeholder='핀의 둘레 P (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finB_Ac' type='number' step='any' placeholder='핀의 단면적 Aₙ (m²)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finB_L' type='number' step='any' placeholder='핀의 길이 L (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finB_Tb' type='number' step='any' placeholder='기저 온도 T_b (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finB_Tinf' type='number' step='any' placeholder='주위 온도 T_∞ (°C)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <button onclick='calcFinB()' class='bg-yellow-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-yellow-700 transition'>계산하기</button>
+  <div id='finB-result' class='mt-3 text-base font-medium text-gray-800'></div>
+</section>
+`,
+
+  finC: `
+<section class='bg-yellow-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+  <div class='text-center mb-3'>
+    <h2 class='text-xl font-bold text-yellow-800'>Fin C 계산기</h2>
+    <p class='text-sm text-gray-600'>온도 지정단 조건 핀의 열전달량 계산</p>
+  </div>
+  <img src="/static/images/heat/fin.png" alt="Fin" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <img src="/static/images/heat/finC.png" alt="FinC" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <input id='finC_h' type='number' step='any' placeholder='대류계수 h (W/m²·K)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finC_k' type='number' step='any' placeholder='전도율 k (W/m·K)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finC_P' type='number' step='any' placeholder='핀의 둘레 P (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finC_Ac' type='number' step='any' placeholder='핀의 단면적 Aₙ (m²)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finC_L' type='number' step='any' placeholder='핀의 길이 L (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finC_Tb' type='number' step='any' placeholder='기저 온도 T_b (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <input id='finC_TL' type='number' step='any' placeholder='끝단 온도 T_L (°C)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+  <button onclick='calcFinC()' class='bg-yellow-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-yellow-700 transition'>계산하기</button>
+  <div id='finC-result' class='mt-3 text-base font-medium text-gray-800'></div>
+</section>
+`,
+
+  finD: `
+<section class='bg-indigo-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+  <div class='text-center mb-3'>
+    <h2 class='text-xl font-bold text-indigo-800'>Fin D 계산기</h2>
+    <p class='text-sm text-gray-600'>Infinite Fin (Type D) 열전달량 계산</p>
+  </div>
+  <img src="/static/images/heat/fin.png" alt="Fin" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <img src="/static/images/heat/finD.png" alt="FinD" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <input id='finD_h' type='number' step='any' placeholder='대류계수 h (W/m²·K)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-indigo-400'>
+  <input id='finD_k' type='number' step='any' placeholder='전도율 k (W/m·K)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-indigo-400'>
+  <input id='finD_P' type='number' step='any' placeholder='핀의 둘레 P (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-indigo-400'>
+  <input id='finD_Ac' type='number' step='any' placeholder='단면적 A_c (m²)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-indigo-400'>
+  <input id='finD_Tb' type='number' step='any' placeholder='기저 온도 T_b (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-indigo-400'>
+  <input id='finD_Tinf' type='number' step='any' placeholder='주위 온도 T_∞ (°C)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-indigo-400'>
+  <button onclick='calcFinD()' class='bg-indigo-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-indigo-700 transition'>계산하기</button>
+  <div id='finD-result' class='mt-3 text-base font-medium text-gray-800'></div>
+</section>
+`,
+
+  shape1: `
+<section class='bg-purple-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+  <div class='text-center mb-3'>
+    <h2 class='text-xl font-bold text-purple-800'>Shape Factor 1 계산기</h2>
+    <p class='text-sm text-gray-600'>기본 열전달 계산을 위한 입력값을 입력하세요</p>
+  </div>
+  <img src="/static/images/heat/shape1.png" alt="Shape1" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <input id='shape1_T1' type='number' step='any' placeholder='T₁ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape1_T2' type='number' step='any' placeholder='T₂ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape1_D' type='number' step='any' placeholder='D (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape1_z' type='number' step='any' placeholder='z (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape1_L' type='number' step='any' placeholder='L (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape1_w' type='number' step='any' placeholder='w (m)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <button onclick='calcShape1()' class='bg-purple-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-purple-700 transition'>계산하기</button>
+  <div id='shape1-result' class='mt-3 text-base font-medium text-gray-800'></div>
+</section>
+`,
+
+  shape2: `
+<section class='bg-purple-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+  <div class='text-center mb-3'>
+    <h2 class='text-xl font-bold text-purple-800'>Shape Factor 2 계산기</h2>
+    <p class='text-sm text-gray-600'>기본 열전달 계산을 위한 입력값을 입력하세요</p>
+  </div>
+  <img src="/static/images/heat/shape2.png" alt="Shape2" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <input id='shape2_T1' type='number' step='any' placeholder='T₁ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape2_T2' type='number' step='any' placeholder='T₂ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape2_D' type='number' step='any' placeholder='D (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape2_z' type='number' step='any' placeholder='z (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape2_L' type='number' step='any' placeholder='L (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape2_w' type='number' step='any' placeholder='w (m)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <button onclick='calcShape2()' class='bg-purple-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-purple-700 transition'>계산하기</button>
+  <div id='shape2-result' class='mt-3 text-base font-medium text-gray-800'></div>
+</section>
+`,
+
+  shape3: `
+<section class='bg-purple-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+  <div class='text-center mb-3'>
+    <h2 class='text-xl font-bold text-purple-800'>Shape Factor 3 계산기</h2>
+    <p class='text-sm text-gray-600'>기본 열전달 계산을 위한 입력값을 입력하세요</p>
+  </div>
+  <img src="/static/images/heat/shape3.png" alt="Shape3" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <input id='shape3_T1' type='number' step='any' placeholder='T₁ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape3_T2' type='number' step='any' placeholder='T₂ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape3_D' type='number' step='any' placeholder='D (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape3_z' type='number' step='any' placeholder='z (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape3_L' type='number' step='any' placeholder='L (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape3_w' type='number' step='any' placeholder='w (m)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <button onclick='calcShape3()' class='bg-purple-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-purple-700 transition'>계산하기</button>
+  <div id='shape3-result' class='mt-3 text-base font-medium text-gray-800'></div>
+</section>
+`,
+
+  shape4: `
+<section class='bg-pink-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+  <div class='text-center mb-3'>
+    <h2 class='text-xl font-bold text-pink-800'>Shape Factor 4 계산기</h2>
+    <p class='text-sm text-gray-600'>기본 열전달 계산을 위한 입력값을 입력하세요</p>
+  </div>
+  <img src="/static/images/heat/shape4.png" alt="Shape4" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <input id='shape4_T1' type='number' step='any' placeholder='T₁ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-pink-400'>
+  <input id='shape4_T2' type='number' step='any' placeholder='T₂ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-pink-400'>
+  <input id='shape4_D' type='number' step='any' placeholder='D (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-pink-400'>
+  <input id='shape4_z' type='number' step='any' placeholder='z (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-pink-400'>
+  <input id='shape4_L' type='number' step='any' placeholder='L (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-pink-400'>
+  <input id='shape4_w' type='number' step='any' placeholder='w (m)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-pink-400'>
+  <button onclick='calcShape4()' class='bg-pink-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-pink-700 transition'>계산하기</button>
+  <div id='shape4-result' class='mt-3 text-base font-medium text-gray-800'></div>
+</section>
+`,
+
+  shape5: `
+<section class='bg-red-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+  <div class='text-center mb-3'>
+    <h2 class='text-xl font-bold text-red-800'>Shape Factor 5 계산기</h2>
+    <p class='text-sm text-gray-600'>기본 열전달 계산을 위한 입력값을 입력하세요</p>
+  </div>
+  <img src="/static/images/heat/shape5.png" alt="Shape5" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <input id='shape5_T1' type='number' step='any' placeholder='T₁ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-red-400'>
+  <input id='shape5_T2' type='number' step='any' placeholder='T₂ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-red-400'>
+  <input id='shape5_D' type='number' step='any' placeholder='D (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-red-400'>
+  <input id='shape5_z' type='number' step='any' placeholder='z (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-red-400'>
+  <input id='shape5_L' type='number' step='any' placeholder='L (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-red-400'>
+  <input id='shape5_w' type='number' step='any' placeholder='w (m)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-red-400'>
+  <button onclick='calcShape5()' class='bg-red-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-red-700 transition'>계산하기</button>
+  <div id='shape5-result' class='mt-3 text-base font-medium text-gray-800'></div>
+</section>
+`,
+
+  shape6: `
+<section class='bg-orange-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+  <div class='text-center mb-3'>
+    <h2 class='text-xl font-bold text-orange-800'>Shape Factor 6 계산기</h2>
+    <p class='text-sm text-gray-600'>기본 열전달 계산을 위한 입력값을 입력하세요</p>
+  </div>
+  <img src="/static/images/heat/shape6.png" alt="Shape6" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <input id='shape6_T1' type='number' step='any' placeholder='T₁ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <input id='shape6_T2' type='number' step='any' placeholder='T₂ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <input id='shape6_D' type='number' step='any' placeholder='D (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <input id='shape6_z' type='number' step='any' placeholder='z (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <input id='shape6_L' type='number' step='any' placeholder='L (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <input id='shape6_w' type='number' step='any' placeholder='w (m)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <button onclick='calcShape6()' class='bg-orange-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-orange-700 transition'>계산하기</button>
+  <div id='shape6-result' class='mt-3 text-base font-medium text-gray-800'></div>
+</section>
+`,
+
+shape7: `
+<section class='bg-emerald-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+  <div class='text-center mb-3'>
+    <h2 class='text-xl font-bold text-emerald-800'>Shape Factor 7 계산기</h2>
+    <p class='text-sm text-gray-600'>기본 열전달 계산을 위한 입력값을 입력하세요</p>
+  </div>
+  <img src="/static/images/heat/shape7.png" alt="Shape7" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <input id='shape7_T1' type='number' step='any' placeholder='T₁ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-400'>
+  <input id='shape7_T2' type='number' step='any' placeholder='T₂ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-400'>
+  <input id='shape7_D' type='number' step='any' placeholder='D (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-400'>
+  <input id='shape7_z' type='number' step='any' placeholder='z (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-400'>
+  <input id='shape7_L' type='number' step='any' placeholder='L (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-400'>
+  <input id='shape7_w' type='number' step='any' placeholder='w (m)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-emerald-400'>
+  <button onclick='calcShape7()' class='bg-emerald-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-emerald-700 transition'>계산하기</button>
+  <div id='shape7-result' class='mt-3 text-base font-medium text-gray-800'></div>
+</section>
+`,
+
+
+  shape8: `
+<section class='bg-purple-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+  <div class='text-center mb-3'>
+    <h2 class='text-xl font-bold text-purple-800'>Shape Factor 8 계산기</h2>
+    <p class='text-sm text-gray-600'>기본 열전달 계산을 위한 입력값을 입력하세요</p>
+  </div>
+  <img src="/static/images/heat/shape8.png" alt="Shape8" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <input id='shape8_T1' type='number' step='any' placeholder='T₁ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape8_T2' type='number' step='any' placeholder='T₂ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape8_D' type='number' step='any' placeholder='D (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape8_z' type='number' step='any' placeholder='z (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape8_L' type='number' step='any' placeholder='L (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <input id='shape8_w' type='number' step='any' placeholder='w (m)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+  <button onclick='calcShape8()' class='bg-purple-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-purple-700 transition'>계산하기</button>
+  <div id='shape8-result' class='mt-3 text-base font-medium text-gray-800'></div>
+</section>
+`,
+
+ shape9: `
+<section class='bg-rose-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+  <div class='text-center mb-3'>
+    <h2 class='text-xl font-bold text-rose-800'>Shape Factor 9 계산기</h2>
+    <p class='text-sm text-gray-600'>기본 열전달 계산을 위한 입력값을 입력하세요</p>
+  </div>
+  <img src="/static/images/heat/shape9.png" alt="Shape9" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <input id='shape9_T1' type='number' step='any' placeholder='T₁ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-rose-400'>
+  <input id='shape9_T2' type='number' step='any' placeholder='T₂ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-rose-400'>
+  <input id='shape9_D' type='number' step='any' placeholder='D (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-rose-400'>
+  <input id='shape9_z' type='number' step='any' placeholder='z (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-rose-400'>
+  <input id='shape9_L' type='number' step='any' placeholder='L (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-rose-400'>
+  <input id='shape9_w' type='number' step='any' placeholder='w (m)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-rose-400'>
+  <button onclick='calcShape9()' class='bg-rose-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-rose-700 transition'>계산하기</button>
+  <div id='shape9-result' class='mt-3 text-base font-medium text-gray-800'></div>
+</section>
+`,
+
+ shape10: `
+<section class='bg-orange-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+  <div class='text-center mb-3'>
+    <h2 class='text-xl font-bold text-orange-800'>Shape Factor 10 계산기</h2>
+    <p class='text-sm text-gray-600'>기본 열전달 계산을 위한 입력값을 입력하세요</p>
+  </div>
+  <img src="/static/images/heat/shape10.png" alt="Shape10" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <input id='shape10_T1' type='number' step='any' placeholder='T₁ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <input id='shape10_T2' type='number' step='any' placeholder='T₂ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <input id='shape10_D' type='number' step='any' placeholder='D (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <input id='shape10_z' type='number' step='any' placeholder='z (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <input id='shape10_L' type='number' step='any' placeholder='L (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <input id='shape10_w' type='number' step='any' placeholder='w (m)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <button onclick='calcShape10()' class='bg-orange-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-orange-700 transition'>계산하기</button>
+  <div id='shape10-result' class='mt-3 text-base font-medium text-gray-800'></div>
+</section>
+`,
+
+  shape11: `
+<section class='bg-orange-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+  <div class='text-center mb-3'>
+    <h2 class='text-xl font-bold text-orange-800'>Shape Factor 11 계산기</h2>
+    <p class='text-sm text-gray-600'>기본 열전달 계산을 위한 입력값을 입력하세요</p>
+  </div>
+  <img src="/static/images/heat/shape11.png" alt="Shape11" class="mb-3 rounded shadow-md w-full max-w-xs">
+  <input id='shape11_T1' type='number' step='any' placeholder='T₁ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <input id='shape11_T2' type='number' step='any' placeholder='T₂ (°C)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <input id='shape11_D' type='number' step='any' placeholder='D (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <input id='shape11_z' type='number' step='any' placeholder='z (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <input id='shape11_L' type='number' step='any' placeholder='L (m)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <input id='shape11_w' type='number' step='any' placeholder='w (m)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-orange-400'>
+  <button onclick='calcShape11()' class='bg-orange-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-orange-700 transition'>계산하기</button>
+  <div id='shape11-result' class='mt-3 text-base font-medium text-gray-800'></div>
+</section>
+`
+    };
+
+    document.querySelectorAll(".menu-button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-id");
+        const content = calculators[id] || "<div>준비 중입니다.</div>";
+        document.getElementById("content-area").innerHTML = content;
+      });
+    });
+function calcFinA() {
+  const h = parseFloat(document.getElementById("finA_h").value);
+  const k = parseFloat(document.getElementById("finA_k").value);
+  const P = parseFloat(document.getElementById("finA_P").value);
+  const Ac = parseFloat(document.getElementById("finA_Ac").value);
+  const L = parseFloat(document.getElementById("finA_L").value);
+  const Tb = parseFloat(document.getElementById("finA_Tb").value);
+  const Tinf = parseFloat(document.getElementById("finA_Tinf").value);
+
+  let result = "";
+
+  try {
+    if ([h, k, P, Ac, L, Tb, Tinf].some(isNaN)) throw "모든 값을 입력하세요.";
+
+    const m = Math.sqrt((h * P) / (k * Ac));
+    const M = Math.sqrt(h * P * k * Ac) * (Tb - Tinf);
+
+    const numerator = Math.sinh(m * L) + (h / (m * k)) * Math.cosh(m * L);
+    const denominator = Math.cosh(m * L) + (h / (m * k)) * Math.sinh(m * L);
+    const q = M * (numerator / denominator);
+
+    result = `Fin A 열전달량 q: ${q.toFixed(3)} W`;
+  } catch (e) {
+    result = `❌ 오류: ${e}`;
+  }
+
+  document.getElementById("finA-result").innerText = result;
+}
+
+function calcFinB() {
+  const h = parseFloat(document.getElementById("finB_h").value);
+  const k = parseFloat(document.getElementById("finB_k").value);
+  const P = parseFloat(document.getElementById("finB_P").value);
+  const Ac = parseFloat(document.getElementById("finB_Ac").value);
+  const L = parseFloat(document.getElementById("finB_L").value);
+  const Tb = parseFloat(document.getElementById("finB_Tb").value);
+  const Tinf = parseFloat(document.getElementById("finB_Tinf").value);
+
+  let result = "";
+
+  try {
+    if ([h, k, P, Ac, L, Tb, Tinf].some(isNaN)) throw "모든 값을 입력하세요.";
+
+    const m = Math.sqrt((h * P) / (k * Ac));
+    const M = Math.sqrt(h * P * k * Ac) * (Tb - Tinf);
+
+    const q = M * Math.tanh(m * L);
+
+    result = `Fin B 열전달량 q: ${q.toFixed(3)} W`;
+  } catch (e) {
+    result = `❌ 오류: ${e}`;
+  }
+
+  document.getElementById("finB-result").innerText = result;
+}
+
+function calcFinC() {
+  const h = parseFloat(document.getElementById("finC_h").value);
+  const k = parseFloat(document.getElementById("finC_k").value);
+  const P = parseFloat(document.getElementById("finC_P").value);
+  const Ac = parseFloat(document.getElementById("finC_Ac").value);
+  const L = parseFloat(document.getElementById("finC_L").value);
+  const Tb = parseFloat(document.getElementById("finC_Tb").value);
+  const Tinf = parseFloat(document.getElementById("finC_Tinf").value);
+  const TL = parseFloat(document.getElementById("finC_TL").value); // T at x = L
+
+  let result = "";
+
+  try {
+    if ([h, k, P, Ac, L, Tb, Tinf, TL].some(isNaN)) throw "모든 값을 입력하세요.";
+
+    const m = Math.sqrt((h * P) / (k * Ac));
+    const theta_b = Tb - Tinf;
+    const theta_L = TL - Tinf;
+
+    const M = Math.sqrt(h * P * k * Ac) * theta_b;
+
+    const q = M * ((Math.cosh(m * L) - (theta_L / theta_b)) / Math.sinh(m * L));
+
+    result = `Fin C 열전달량 q: ${q.toFixed(3)} W`;
+  } catch (e) {
+    result = `❌ 오류: ${e}`;
+  }
+
+  document.getElementById("finC-result").innerText = result;
+}
+function calcFinD() {
+  const h = parseFloat(document.getElementById('finD_h').value);
+  const k = parseFloat(document.getElementById('finD_k').value);
+  const P = parseFloat(document.getElementById('finD_P').value);
+  const Ac = parseFloat(document.getElementById('finD_Ac').value);
+  const Tb = parseFloat(document.getElementById('finD_Tb').value);
+  const Tinf = parseFloat(document.getElementById('finD_Tinf').value);
+
+  let result = '';
+
+  try {
+    if ([h, k, P, Ac, Tb, Tinf].some(isNaN)) throw "모든 값을 입력해주세요.";
+    const M = Math.sqrt(h * P * k * Ac) * (Tb - Tinf);
+    result = `계산된 Fin D 열전달량 q = ${M.toFixed(4)} W`;
+  } catch (e) {
+    result = `❌ 오류: ${e}`;
+  }
+
+  document.getElementById('finD-result').innerText = result;
+}
+
+
+  </script>
+</body>
+</html>
