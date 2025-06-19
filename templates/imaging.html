@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Physics Menu Prototype</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;500;400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f7faf9;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 8px;
+      background: #e5e7eb;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#f7faf9]">
+  <nav class="w-full border-b border-gray-300 bg-white">
+    <div class="max-w-7xl mx-auto flex items-center h-14 px-6">
+      <div class="flex space-x-8">
+        <a href="https://11f1-211-208-7-84.ngrok-free.app/heat" target="_blank" class="text-gray-900 font-medium text-lg px-2 py-1 hover:text-white hover:bg-blue-500 rounded transition">열전달</a>
+        <a href="https://11f1-211-208-7-84.ngrok-free.app/optics" target="_blank" class="text-gray-900 font-medium text-lg px-2 py-1 hover:text-white hover:bg-blue-500 rounded transition">광학</a>
+        <a href="https://11f1-211-208-7-84.ngrok-free.app/imaging" target="_blank" class="text-gray-900 font-medium text-lg px-2 py-1 hover:text-white hover:bg-blue-500 rounded transition">영상학</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto mt-6 border border-gray-400 rounded-lg bg-white shadow-sm overflow-hidden">
+    <div class="flex h-[70vh] min-h-[500px]">
+      <aside class="w-64 bg-gray-100 border-r border-gray-200 flex flex-col items-center py-8 px-4 custom-scroll overflow-y-auto">
+        <h2 class="text-2xl font-bold text-blue-600 mb-6">Menu</h2>
+        <div class="flex flex-col w-full space-y-3"> 
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="fourier">Fourier Transform</button>
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="transfer">Transfer function</button>
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="fwhm">FWHM</button>
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="noise">NoisePDF</button>
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="nyquist">Nyquist</button>
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="inverse">Inverse Square Law</button>
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="effective">Effective Dose</button>
+          <button class="menu-button w-full py-2 rounded bg-gray-200 text-gray-800 font-medium text-base shadow-sm border border-gray-300 hover:bg-blue-100 transition" data-id="attenuation">attenuation</button>
+        </div>
+      </aside>
+
+      <section id="content-area" class="flex-1 bg-gray-50 p-10 flex items-center justify-center">
+        <div class="text-gray-400 text-xl font-medium">메뉴를 선택해주세요</div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const calculators = {
+      fourier: `
+        <section class='bg-purple-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+          <div class='text-center mb-3'>
+          <div class='text-lg font-semibold text-gray-700 mb-1'>입력 함수: A·cos(2π·f·t + ϕ)</div>
+              <h2 class='text-xl font-bold text-purple-800'>Fourier Transform 계산기</h2>
+          </div>
+          <img src="/static/images/imaging/fourier.png" alt="Critical Angle Diagram" class="mb-3 rounded shadow-md w-full max-w-xs">
+         <input id='fourier_amp' type='number' step='any' placeholder='진폭 A' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+         <input id='fourier_freq' type='number' step='any' placeholder='주파수 f (Hz)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+            <input id='fourier_phase' type='number' step='any' placeholder='위상 ϕ (도)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+         <button onclick='calcFourier()' class='bg-purple-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-purple-700 transition'>계산하기</button>
+         <div id='fourier-result' class='mt-3 text-base font-medium text-gray-800'></div>
+        </section>
+     `,
+      transfer:  `
+         <section class='bg-yellow-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+         <div class='text-center mb-3'>
+           <div class='text-lg font-semibold text-gray-700 mb-1'>H(f) = 1 / √(1 + (f/f_c)²)</div>
+           <h2 class='text-xl font-bold text-yellow-800'>Transfer Function 계산기</h2>
+         </div>
+          <img src="/static/images/imaging/transfer_function.png" alt="Transfer Function" class="mb-3 rounded shadow-md w-full max-w-xs">
+          <input id='freq_f' type='number' step='any' placeholder='f (Hz)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+         <input id='cutoff_fc' type='number' step='any' placeholder='f_c (Hz, 컷오프)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+          <button onclick='calcTransfer()' class='bg-yellow-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-yellow-700 transition'>계산하기</button>
+          <div id='transfer-result' class='mt-3 text-base font-medium text-gray-800'></div>
+         </section>
+        `,
+      fwhm: `
+  <section class='bg-yellow-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+    <div class='text-center mb-3'>
+      <div class='text-lg font-semibold text-gray-700 mb-1'>FWHM = 2·√(2·ln2)·σ ≈ 2.355·σ</div>
+      <h2 class='text-xl font-bold text-yellow-800'>FWHM 계산기</h2>
+    </div>
+    <img src="/static/images/imaging/fwhm.png" alt="FWHM" class="mb-3 rounded shadow-md w-full max-w-xs">
+    <input id='fwhm_sigma' type='number' step='any' placeholder='표준편차 σ 입력' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+    <button onclick='calcFWHM()' class='bg-yellow-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-yellow-700 transition'>계산하기</button>
+    <div id='fwhm-result' class='mt-3 text-base font-medium text-gray-800'></div>
+  </section>
+`,
+
+      noise: `
+  <section class='bg-purple-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+    <div class='text-center mb-3'>
+      <div class='text-sm font-semibold text-gray-700 mb-1'>f(x) = (1 / √(2πσ²)) · exp(- (x - μ)² / 2σ²)</div>
+      <h2 class='text-xl font-bold text-purple-800'>가우시안 Noise 확률밀도 함수 계산기</h2>
+    </div>
+    <input id='noise_mu' type='number' step='any' placeholder='평균 μ 입력' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+    <input id='noise_sigma' type='number' step='any' placeholder='표준편차 σ 입력' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+    <input id='noise_x' type='number' step='any' placeholder='x 입력' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+    <button onclick='calcNoisePDF()' class='bg-purple-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-purple-700 transition'>계산하기</button>
+    <div id='noise-result' class='mt-3 text-base font-medium text-gray-800'></div>
+  </section>
+`,
+
+      nyquist: `
+  <section class='bg-blue-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+    <div class='text-center mb-3'>
+      <div class='text-lg font-semibold text-gray-700 mb-1'>f<sub>s</sub> ≥ 2·f<sub>max</sub></div>
+      <h2 class='text-xl font-bold text-blue-800'>나이퀴스트 샘플링 계산기</h2>
+    </div>
+    <img src="/static/images/imaging/nyquist.png" alt="Nyquist Sample" class="mb-3 rounded shadow-md w-full max-w-xs">
+    <input id='nyquist_fmax' type='number' step='any' placeholder='최대 주파수 fₘ 입력 (Hz)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-blue-400'>
+    <button onclick='calcNyquist()' class='bg-blue-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-blue-700 transition'>계산하기</button>
+    <div id='nyquist-result' class='mt-3 text-base font-medium text-gray-800'></div>
+  </section>
+`,
+
+      inverse: `
+  <section class='bg-blue-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+    <div class='text-center mb-3'>
+      <div class='text-lg font-semibold text-gray-700 mb-1'>I ∝ 1 / d²</div>
+      <h2 class='text-xl font-bold text-blue-800'>Inverse Square Law 계산기</h2>
+    </div>
+    <img src="/static/images/imaging/inverse.png" alt="Inverse Square Law" class="mb-3 rounded shadow-md w-full max-w-xs">
+    <input id='I0' type='number' step='any' placeholder='I₀ (기준 세기)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-blue-400'>
+    <input id='d0' type='number' step='any' placeholder='d₀ (기준 거리)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-blue-400'>
+    <input id='d' type='number' step='any' placeholder='d (목표 거리)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-blue-400'>
+    <button onclick='calcInverseSquare()' class='bg-blue-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-blue-700 transition'>계산하기</button>
+    <div id='inverse-result' class='mt-3 text-base font-medium text-gray-800'></div>
+  </section>
+`,
+      effective: `
+  <section class='bg-green-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+    <div class='text-center mb-3'>
+      <div class='text-lg font-semibold text-gray-700 mb-1'>E = ∑(W<sub>T</sub> · H<sub>T</sub>)</div>
+      <h2 class='text-xl font-bold text-green-800'>Effective Dose 계산기</h2>
+    </div>
+    <img src="/static/images/imaging/effective.png" alt="Effective Dose Diagram" class="mb-3 rounded shadow-md w-full max-w-xs">
+    <input id='w' type='number' step='any' placeholder='조직 가중치 Wₜ' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-green-400'>
+    <input id='h' type='number' step='any' placeholder='등가선량 Hₜ (mSv)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-green-400'>
+    <button onclick='calcEffectiveDose()' class='bg-green-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-green-700 transition'>계산하기</button>
+    <div id='effective-result' class='mt-3 text-base font-medium text-gray-800'></div>
+  </section>
+`,
+      attenuation: `
+  <section class='bg-yellow-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+    <div class='text-center mb-3'>
+      <div class='text-lg font-semibold text-gray-700 mb-1'>I = I₀ · e^(−μx)</div>
+      <h2 class='text-xl font-bold text-yellow-800'>X-ray 감쇠 법칙 계산기</h2>
+    </div>
+    <img src="/static/images/imaging/attenuation.png" alt="Attenuation Diagram" class="mb-3 rounded shadow-md w-full max-w-xs">
+    <input id='I0_att' type='number' step='any' placeholder='초기 강도 I₀' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+    <input id='mu' type='number' step='any' placeholder='선형 감쇠 계수 μ (1/cm)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+    <input id='x' type='number' step='any' placeholder='두께 x (cm)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+    <button onclick='calcAttenuation()' class='bg-yellow-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-yellow-700 transition'>계산하기</button>
+    <div id='attenuation-result' class='mt-3 text-base font-medium text-gray-800'></div>
+  </section>
+`
+    };
+
+    document.querySelectorAll(".menu-button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-id");
+        const content = calculators[id] || "<div>준비 중입니다.</div>";
+        document.getElementById("content-area").innerHTML = content;
+      });
+    });
+
+    function calcFourier() {
+          const A = parseFloat(document.getElementById("fourier_amp").value);
+         const f = parseFloat(document.getElementById("fourier_freq").value);
+        const phiDeg = parseFloat(document.getElementById("fourier_phase").value);
+        const resultArea = document.getElementById("fourier-result");
+
+        try {
+          if (isNaN(A) || isNaN(f) || isNaN(phiDeg)) throw "모든 값을 입력하세요.";
+          const phiRad = phiDeg * (Math.PI / 180);
+
+          const real = (A / 2).toFixed(4);
+          const imag = (A / 2 * Math.sin(phiRad)).toFixed(4);
+          const re = (A / 2 * Math.cos(phiRad)).toFixed(4);
+          const im = (A / 2 * Math.sin(phiRad)).toFixed(4);
+
+          resultArea.innerHTML = `
+            <div>📌 결과 (주파수 영역)</div>
+            <div class="mt-2">δ(f - ${f}) 성분: <strong>${re} + j${im}</strong></div>
+            <div class="mt-1">δ(f + ${f}) 성분: <strong>${re} - j${im}</strong></div>
+          `;
+        } catch (e) {
+          resultArea.innerHTML = `❌ 오류: ${e}`;
+        }
+    }
+    function calcTransfer() {
+         const f = parseFloat(document.getElementById("freq_f").value);
+         const fc = parseFloat(document.getElementById("cutoff_fc").value);
+         let result = '';
+
+         try {
+           if (isNaN(f) || isNaN(fc) || fc <= 0) throw "모든 값을 올바르게 입력하세요.";
+           const gain = 1 / Math.sqrt(1 + Math.pow(f / fc, 2));
+           result = `|H(f)| = ${gain.toFixed(4)} (Gain)`;
+          } catch (e) {
+            result = `❌ 오류: ${e}`;
+          }
+          document.getElementById("transfer-result").innerText = result;
+    }
+    function calcFWHM() {
+  const sigma = parseFloat(document.getElementById("fwhm_sigma").value);
+  let result = '';
+  try {
+    if (isNaN(sigma) || sigma <= 0) throw "σ는 양수여야 합니다.";
+    const fwhm = 2.35482 * sigma;
+    result = `계산된 FWHM: ${fwhm.toFixed(4)}`;
+  } catch (e) {
+    result = `❌ 오류: ${e}`;
+  }
+  document.getElementById("fwhm-result").innerText = result;
+}
+function calcNoisePDF() {
+  const mu = parseFloat(document.getElementById("noise_mu").value);
+  const sigma = parseFloat(document.getElementById("noise_sigma").value);
+  const x = parseFloat(document.getElementById("noise_x").value);
+  let result = '';
+  try {
+    if (isNaN(mu) || isNaN(sigma) || isNaN(x)) throw "모든 값을 입력하세요.";
+    if (sigma <= 0) throw "σ는 양수여야 합니다.";
+    const coeff = 1 / (Math.sqrt(2 * Math.PI) * sigma);
+    const exponent = -Math.pow(x - mu, 2) / (2 * sigma * sigma);
+    const fx = coeff * Math.exp(exponent);
+    result = `f(x) = ${fx.toExponential(5)}`;
+  } catch (e) {
+    result = `❌ 오류: ${e}`;
+  }
+  document.getElementById("noise-result").innerText = result;
+}
+function calcNyquist() {
+  const fmax = parseFloat(document.getElementById("nyquist_fmax").value);
+  let result = '';
+  try {
+    if (isNaN(fmax) || fmax <= 0) throw "fₘ은 양수여야 합니다.";
+    const fs = 2 * fmax;
+    result = `샘플링 주파수 fₛ ≥ ${fs.toFixed(2)} Hz`;
+  } catch (e) {
+    result = `❌ 오류: ${e}`;
+  }
+  document.getElementById("nyquist-result").innerText = result;
+}
+function calcInverseSquare() {
+  const I0 = parseFloat(document.getElementById("I0").value);
+  const d0 = parseFloat(document.getElementById("d0").value);
+  const d = parseFloat(document.getElementById("d").value);
+  let result = '';
+  try {
+    if (isNaN(I0) || isNaN(d0) || isNaN(d)) throw "값을 모두 입력하세요.";
+    const I = I0 * (d0 ** 2) / (d ** 2);
+    result = `계산된 세기 I: ${I.toFixed(4)}`;
+  } catch (e) {
+    result = `❌ 오류: ${e}`;
+  }
+  document.getElementById("inverse-result").innerText = result;
+}
+function calcEffectiveDose() {
+  const w = parseFloat(document.getElementById("w").value);
+  const h = parseFloat(document.getElementById("h").value);
+  let result = '';
+  try {
+    if (isNaN(w) || isNaN(h)) throw "값을 모두 입력하세요.";
+    const e = w * h;
+    result = `유효선량 E: ${e.toFixed(4)} mSv`;
+  } catch (e) {
+    result = `❌ 오류: ${e}`;
+  }
+  document.getElementById("effective-result").innerText = result;
+}
+function calcAttenuation() {
+  const I0 = parseFloat(document.getElementById("I0_att").value);
+  const mu = parseFloat(document.getElementById("mu").value);
+  const x = parseFloat(document.getElementById("x").value);
+  let result = '';
+  try {
+    if (isNaN(I0) || isNaN(mu) || isNaN(x)) throw "값을 모두 입력하세요.";
+    const I = I0 * Math.exp(-mu * x);
+    result = `계산된 강도 I: ${I.toFixed(4)}`;
+  } catch (e) {
+    result = `❌ 오류: ${e}`;
+  }
+  document.getElementById("attenuation-result").innerText = result;
+}
+  </script>
+</body>
+</html>
