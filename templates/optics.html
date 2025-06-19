@@ -93,14 +93,152 @@
           <div id='critical-result' class='mt-3 text-base font-medium text-gray-800'></div>
         </section>
       `,
-      thin: `<div class='text-2xl text-gray-700 font-bold'>a 계산기 준비 중입니다.</div>`,
-      magnification: `<div class='text-2xl text-gray-700 font-bold'>b 계산기 준비 중입니다.</div>`,
-      two_thin: `<div class='text-2xl text-gray-700 font-bold'>a 계산기 준비 중입니다.</div>`,
-      newtonian: `<div class='text-2xl text-gray-700 font-bold'>a 계산기 준비 중입니다.</div>`,
-      lens_maker: `<div class='text-2xl text-gray-700 font-bold'>a 계산기 준비 중입니다.</div>`,
-      fov: `<div class='text-2xl text-gray-700 font-bold'>a 계산기 준비 중입니다.</div>`,
-      F_number: `<div class='text-2xl text-gray-700 font-bold'>a 계산기 준비 중입니다.</div>`,
-      depth: `<div class='text-2xl text-gray-700 font-bold'>a 계산기 준비 중입니다.</div>`
+      thin: `
+        <section class='bg-yellow-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+          <div class='text-center mb-3'>
+            <div class='text-lg font-semibold text-gray-700 mb-1'>1/f = 1/s + 1/s′</div>
+            <h2 class='text-xl font-bold text-yellow-800'>Thin Lens Equation 계산기</h2>
+          </div>
+          <img src="/static/images/optics/thin.png" alt="Thin Lens Equation" class="mb-3 rounded shadow-md w-full max-w-xs">
+          <label class='block mb-2 text-gray-700 font-medium text-sm'>어떤 값을 계산할까요?</label>
+          <select id='thin-target' class='w-full mb-3 px-3 py-1.5 rounded border border-gray-300 text-sm focus:ring-2 focus:ring-yellow-400'>
+            <option value='f'>f (초점거리)</option>
+            <option value='s'>s (물체 거리)</option>
+            <option value='sp'>s′ (상 거리)</option>
+          </select>
+          <input id='thin-f' type='number' step='any' placeholder='f 입력' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+          <input id='thin-s' type='number' step='any' placeholder='s 입력' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+          <input id='thin-sp' type='number' step='any' placeholder='s′ 입력' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+          <button onclick='calcThinLens()' class='bg-yellow-500 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-yellow-600 transition'>계산하기</button>
+          <div id='thin-result' class='mt-3 text-base font-medium text-gray-800'></div>
+        </section>
+      `,
+      magnification: `
+        <section class='bg-purple-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+          <div class='text-center mb-3'>
+           <div class='text-lg font-semibold text-gray-700 mb-1'>M = -s′ / s</div>
+           <h2 class='text-xl font-bold text-purple-800'>Lateral Magnification 계산기</h2>
+          </div>
+         <img src="/static/images/optics/magnification.png" alt="Lateral Magnification" class="mb-3 rounded shadow-md w-full max-w-xs">
+         <label class='block mb-2 text-gray-700 font-medium text-sm'>어떤 값을 계산할까요?</label>
+         <select id='mag-target' class='w-full mb-3 px-3 py-1.5 rounded border border-gray-300 text-sm focus:ring-2 focus:ring-purple-400'>
+           <option value='M'>M (확대율)</option>
+           <option value='s'>s (물체 거리)</option>
+           <option value='sp'>s′ (상 거리)</option>
+         </select>
+         <input id='mag-M' type='number' step='any' placeholder='M 입력' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+         <input id='mag-s' type='number' step='any' placeholder='s 입력' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+         <input id='mag-sp' type='number' step='any' placeholder='s′ 입력' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+         <button onclick='calcMagnification()' class='bg-purple-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-purple-700 transition'>계산하기</button>
+         <div id='magnification-result' class='mt-3 text-base font-medium text-gray-800'></div>
+       </section>
+      `,
+      two_thin: `
+       <section class='bg-yellow-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+          <div class='text-center mb-3'>
+            <div class='text-lg font-semibold text-gray-700 mb-1'>1/f = 1/f₁ + 1/f₂ - L/(f₁·f₂)</div>
+            <h2 class='text-xl font-bold text-yellow-800'>Two Thin Lenses 계산기</h2>
+          </div>
+          <img src="/static/images/optics/two_thin.png" alt="Two Thin Lens Equation" class="mb-3 rounded shadow-md w-full max-w-xs">
+          <label class='block mb-2 text-gray-700 font-medium text-sm'>어떤 값을 계산할까요?</label>
+          <select id='two-lens-target' class='w-full mb-3 px-3 py-1.5 rounded border border-gray-300 text-sm focus:ring-2 focus:ring-yellow-400'>
+            <option value='f'>f (시스템 초점거리)</option>
+            <option value='f1'>f₁ (첫 번째 렌즈 초점거리)</option>
+            <option value='f2'>f₂ (두 번째 렌즈 초점거리)</option>
+            <option value='L'>L (렌즈 간 거리)</option>
+          </select>
+          <input id='f1' type='number' step='any' placeholder='f₁ 입력' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+          <input id='f2' type='number' step='any' placeholder='f₂ 입력' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+          <input id='L' type='number' step='any' placeholder='L 입력 (렌즈 간 거리)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+          <input id='f' type='number' step='any' placeholder='f 입력 (시스템 초점거리)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+          <button onclick='calcTwoThinLenses()' class='bg-yellow-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-yellow-700 transition'>계산하기</button>
+          <div id='two-thin-result' class='mt-3 text-base font-medium text-gray-800'></div>
+        </section>
+      `,
+      newtonian: `
+        <section class='bg-purple-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+          <div class='text-center mb-3'>
+            <div class='text-lg font-semibold text-gray-700 mb-1'>x · x′ = f²</div>
+            <h2 class='text-xl font-bold text-purple-800'>Newtonian Form 계산기</h2>
+         </div>
+         <img src="/static/images/optics/newtonian.png" alt="Newtonian Form" class="mb-3 rounded shadow-md w-full max-w-xs">
+          <label class='block mb-2 text-gray-700 font-medium text-sm'>어떤 값을 계산할까요?</label>
+          <select id='newtonian-target' class='w-full mb-3 px-3 py-1.5 rounded border border-gray-300 text-sm focus:ring-2 focus:ring-purple-400'>
+          <option value='f'>f (렌즈 초점거리)</option>
+           <option value='x'>x (물체의 초점면에서 거리)</option>
+            <option value='x_prime'>x′ (상의 초점면에서 거리)</option>
+         </select>
+          <input id='f' type='number' step='any' placeholder='f 입력' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+         <input id='x' type='number' step='any' placeholder='x 입력 (물체)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+          <input id='x_prime' type='number' step='any' placeholder='x′ 입력 (상)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+          <button onclick='calcNewtonian()' class='bg-purple-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-purple-700 transition'>계산하기</button>
+          <div id='newtonian-result' class='mt-3 text-base font-medium text-gray-800'></div>
+       </section>
+      `,
+      lens_maker: `
+        <section class='bg-yellow-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+         <div class='text-center mb-3'>
+            <div class='text-lg font-semibold text-gray-700 mb-1'>1/f = (n - 1) · (1/R₁ - 1/R₂)</div>
+            <h2 class='text-xl font-bold text-yellow-800'>Lens Maker's Equation 계산기</h2>
+          </div>
+         <img src="/static/images/optics/lens_maker.png" alt="Lens Maker's Equation" class="mb-3 rounded shadow-md w-full max-w-xs">
+         <label class='block mb-2 text-gray-700 font-medium text-sm'>어떤 값을 계산할까요?</label>
+         <select id='lens-target' class='w-full mb-3 px-3 py-1.5 rounded border border-gray-300 text-sm focus:ring-2 focus:ring-yellow-400'>
+           <option value='f'>f (초점거리)</option>
+            <option value='n'>n (렌즈 굴절률)</option>
+            <option value='R1'>R₁ (첫 번째 곡률반지름)</option>
+           <option value='R2'>R₂ (두 번째 곡률반지름)</option>
+         </select>
+         <input id='lens-n' type='number' step='any' placeholder='n 입력' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+         <input id='lens-R1' type='number' step='any' placeholder='R₁ 입력' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+        <input id='lens-R2' type='number' step='any' placeholder='R₂ 입력' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+        <input id='lens-f' type='number' step='any' placeholder='f 입력' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+         <button onclick='calcLensMaker()' class='bg-yellow-500 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-yellow-600 transition'>계산하기</button>
+          <div id='lens-result' class='mt-3 text-base font-medium text-gray-800'></div>
+       </section>
+      `,
+      fov: `
+       <section class='bg-purple-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+         <div class='text-center mb-3'>
+           <div class='text-lg font-semibold text-gray-700 mb-1'>FOV = 2 · arctan(d / (2f))</div>
+           <h2 class='text-xl font-bold text-purple-800'>Field of View 계산기</h2>
+         </div>
+         <img src="/static/images/optics/fov.png" alt="FOV Diagram" class="mb-3 rounded shadow-md w-full max-w-xs">
+         <input id='fov-d' type='number' step='any' placeholder='d (센서 크기, mm)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+         <input id='fov-f' type='number' step='any' placeholder='f (초점거리, mm)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-purple-400'>
+         <button onclick='calcFOV()' class='bg-purple-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-purple-700 transition'>계산하기</button>
+         <div id='fov-result' class='mt-3 text-base font-medium text-gray-800'></div>
+       </section>
+      `,
+      F_number: `
+       <section class='bg-yellow-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+          <div class='text-center mb-3'>
+            <div class='text-lg font-semibold text-gray-700 mb-1'>f/# = f / D</div>
+            <h2 class='text-xl font-bold text-yellow-800'>F-number 계산기</h2>
+          </div>
+          <img src="/static/images/optics/f_number.png" alt="F-number Diagram" class="mb-3 rounded shadow-md w-full max-w-xs">
+          <input id='fnum-f' type='number' step='any' placeholder='초점거리 f (mm)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+          <input id='fnum-D' type='number' step='any' placeholder='입사동공 지름 D (mm)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+          <button onclick='calcFNumber()' class='bg-yellow-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-yellow-700 transition'>계산하기</button>
+          <div id='fnumber-result' class='mt-3 text-base font-medium text-gray-800'></div>
+        </section>
+      `,
+      depth: `
+        <section class='bg-yellow-50 p-6 flex flex-col items-center justify-start rounded-lg shadow-md max-w-sm w-full'>
+         <div class='text-center mb-3'>
+           <div class='text-lg font-semibold text-gray-700 mb-1'>DOF ≈ (2·N·c·s²) / f²</div>
+           <h2 class='text-xl font-bold text-yellow-800'>Depth of Field 계산기</h2>
+          </div>
+          <img src="/static/images/optics/dof.png" alt="Depth of Field" class="mb-3 rounded shadow-md w-full max-w-xs">
+          <input id='dof_f' type='number' step='any' placeholder='초점거리 f (mm)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+          <input id='dof_N' type='number' step='any' placeholder='F-number N' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+          <input id='dof_c' type='number' step='any' placeholder='허용 혼탁원 c (mm)' class='mb-2 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+          <input id='dof_s' type='number' step='any' placeholder='피사체 거리 s (mm)' class='mb-3 w-full px-3 py-1.5 border rounded text-sm focus:ring-2 focus:ring-yellow-400'>
+          <button onclick='calcDOF()' class='bg-yellow-600 text-white px-5 py-1.5 rounded text-sm font-semibold hover:bg-yellow-700 transition'>계산하기</button>
+          <div id='dof-result' class='mt-3 text-base font-medium text-gray-800'></div>
+        </section>
+      `
+
     };
 
     document.querySelectorAll(".menu-button").forEach(btn => {
@@ -166,6 +304,195 @@
         result = `❌ 오류: ${e}`;
       }
       document.getElementById("critical-result").innerText = result;
+    }
+
+    function calcThinLens() {
+      const target = document.getElementById("thin-target").value;
+      const f = parseFloat(document.getElementById("thin-f").value);
+      const s = parseFloat(document.getElementById("thin-s").value);
+      const sp = parseFloat(document.getElementById("thin-sp").value);
+      let result = '';
+
+      try {
+        if (target === "f") {
+          if (isNaN(s) || isNaN(sp)) throw "s, s′ 값을 모두 입력하세요.";
+          result = 1 / ((1 / s) + (1 / sp));
+          result = `계산된 초점거리 f: ${result.toFixed(4)} (단위 동일)`;
+        } else if (target === "s") {
+          if (isNaN(f) || isNaN(sp)) throw "f, s′ 값을 모두 입력하세요.";
+          result = 1 / ((1 / f) - (1 / sp));
+          result = `계산된 물체 거리 s: ${result.toFixed(4)} (단위 동일)`;
+        } else if (target === "sp") {
+          if (isNaN(f) || isNaN(s)) throw "f, s 값을 모두 입력하세요.";
+          result = 1 / ((1 / f) - (1 / s));
+          result = `계산된 상 거리 s′: ${result.toFixed(4)} (단위 동일)`;
+        }
+      } catch (e) {
+        result = `❌ 오류: ${e}`;
+      }
+      document.getElementById("thin-result").innerText = result;
+    }
+    function calcMagnification() {
+     const target = document.getElementById("mag-target").value;
+     const M = parseFloat(document.getElementById("mag-M").value);
+     const s = parseFloat(document.getElementById("mag-s").value);
+     const sp = parseFloat(document.getElementById("mag-sp").value);
+     let result = '';
+
+     try {
+       if (target === "M") {
+          if (isNaN(s) || isNaN(sp)) throw "s, s′ 값을 모두 입력하세요.";
+         result = -sp / s;
+          result = `계산된 확대율 M: ${result.toFixed(4)}`;
+        } else if (target === "s") {
+          if (isNaN(M) || isNaN(sp)) throw "M, s′ 값을 모두 입력하세요.";
+          result = -sp / M;
+          result = `계산된 물체 거리 s: ${result.toFixed(4)} (단위 동일)`;
+        } else if (target === "sp") {
+          if (isNaN(M) || isNaN(s)) throw "M, s 값을 모두 입력하세요.";
+          result = -M * s;
+          result = `계산된 상 거리 s′: ${result.toFixed(4)} (단위 동일)`;
+        }
+      } catch (e) {
+        result = `❌ 오류: ${e}`;
+      }
+     document.getElementById("magnification-result").innerText = result;
+    }
+    function calcTwoThinLenses() {
+      const target = document.getElementById("two-lens-target").value;
+      const f1 = parseFloat(document.getElementById("f1").value);
+      const f2 = parseFloat(document.getElementById("f2").value);
+      const L = parseFloat(document.getElementById("L").value);
+      const f = parseFloat(document.getElementById("f").value);
+      let result = '';
+
+      try {
+        if (target === "f") {
+          if (isNaN(f1) || isNaN(f2) || isNaN(L)) throw "f₁, f₂, L 값을 모두 입력하세요.";
+          const invF = (1 / f1) + (1 / f2) - (L / (f1 * f2));
+          result = `계산된 초점거리 f: ${(1 / invF).toFixed(4)}`;
+        } else if (target === "f1") {
+          if (isNaN(f) || isNaN(f2) || isNaN(L)) throw "f, f₂, L 값을 모두 입력하세요.";
+          const invF1 = (1 / f) - (1 / f2) + (L / (f2 * f2));
+          const f1_result = 1 / invF1;
+          result = `계산된 f₁: ${f1_result.toFixed(4)}`;
+        } else if (target === "f2") {
+          if (isNaN(f) || isNaN(f1) || isNaN(L)) throw "f, f₁, L 값을 모두 입력하세요.";
+          const invF2 = (1 / f) - (1 / f1) + (L / (f1 * f1));
+          const f2_result = 1 / invF2;
+          result = `계산된 f₂: ${f2_result.toFixed(4)}`;
+        } else if (target === "L") {
+          if (isNaN(f) || isNaN(f1) || isNaN(f2)) throw "f, f₁, f₂ 값을 모두 입력하세요.";
+          const L_result = (1 / f1 + 1 / f2 - 1 / f) * f1 * f2;
+          result = `계산된 렌즈 간 거리 L: ${L_result.toFixed(4)}`;
+        }
+      } catch (e) {
+        result = `❌ 오류: ${e}`;
+      }
+      document.getElementById("two-thin-result").innerText = result;
+    }
+    function calcNewtonian() {
+     const target = document.getElementById("newtonian-target").value;
+     const f = parseFloat(document.getElementById("f").value);
+     const x = parseFloat(document.getElementById("x").value);
+     const x_prime = parseFloat(document.getElementById("x_prime").value);
+     let result = '';
+
+      try {
+        if (target === "f") {
+          if (isNaN(x) || isNaN(x_prime)) throw "x, x′ 값을 모두 입력하세요.";
+          const f_result = Math.sqrt(x * x_prime);
+          result = `계산된 f: ${f_result.toFixed(4)}`;
+       } else if (target === "x") {
+         if (isNaN(f) || isNaN(x_prime)) throw "f, x′ 값을 모두 입력하세요.";
+         const x_result = (f * f) / x_prime;
+          result = `계산된 x: ${x_result.toFixed(4)}`;
+        } else if (target === "x_prime") {
+          if (isNaN(f) || isNaN(x)) throw "f, x 값을 모두 입력하세요.";
+          const x_prime_result = (f * f) / x;
+          result = `계산된 x′: ${x_prime_result.toFixed(4)}`;
+        }
+      } catch (e) {
+        result = `❌ 오류: ${e}`;
+      }
+      document.getElementById("newtonian-result").innerText = result;
+    }
+    function calcLensMaker() {
+      const target = document.getElementById("lens-target").value;
+     const n = parseFloat(document.getElementById("lens-n").value);
+      const R1 = parseFloat(document.getElementById("lens-R1").value);
+     const R2 = parseFloat(document.getElementById("lens-R2").value);
+      const f = parseFloat(document.getElementById("lens-f").value);
+     let result = '';
+
+      try {
+       if (target === "f") {
+         if (isNaN(n) || isNaN(R1) || isNaN(R2)) throw "n, R₁, R₂ 값을 모두 입력하세요.";
+         const f_calc = 1 / ((n - 1) * (1 / R1 - 1 / R2));
+         result = `계산된 초점거리 f: ${f_calc.toFixed(4)}`;
+       } else if (target === "n") {
+          if (isNaN(f) || isNaN(R1) || isNaN(R2)) throw "f, R₁, R₂ 값을 모두 입력하세요.";
+         const n_calc = 1 + (1 / f) / (1 / R1 - 1 / R2);
+         result = `계산된 굴절률 n: ${n_calc.toFixed(4)}`;
+       } else if (target === "R1") {
+         if (isNaN(f) || isNaN(n) || isNaN(R2)) throw "f, n, R₂ 값을 모두 입력하세요.";
+         const R1_calc = 1 / ((1 / f) / (n - 1) + 1 / R2);
+         result = `계산된 R₁: ${R1_calc.toFixed(4)}`;
+       } else if (target === "R2") {
+         if (isNaN(f) || isNaN(n) || isNaN(R1)) throw "f, n, R₁ 값을 모두 입력하세요.";
+         const R2_calc = 1 / (1 / R1 - (1 / f) / (n - 1));
+         result = `계산된 R₂: ${R2_calc.toFixed(4)}`;
+       }
+     } catch (e) {
+       result = `❌ 오류: ${e}`;
+     }
+      document.getElementById("lens-result").innerText = result;
+    }
+    function calcFOV() {
+      const d = parseFloat(document.getElementById("fov-d").value);
+      const f = parseFloat(document.getElementById("fov-f").value);
+     let result = '';
+
+      try {
+      if (isNaN(d) || isNaN(f)) throw "센서 크기와 초점거리를 입력하세요.";
+       const fov_rad = 2 * Math.atan(d / (2 * f)); // 라디안
+       const fov_deg = fov_rad * (180 / Math.PI); // 도
+       result = `시야각 (FOV): ${fov_deg.toFixed(2)}°`;
+     } catch (e) {
+       result = `❌ 오류: ${e}`;
+     }
+      document.getElementById("fov-result").innerText = result;
+    }
+    function calcFNumber() {
+     const f = parseFloat(document.getElementById("fnum-f").value);
+     const D = parseFloat(document.getElementById("fnum-D").value);
+     let result = '';
+
+     try {
+       if (isNaN(f) || isNaN(D)) throw "초점거리와 입사동공 지름을 입력하세요.";
+       if (D === 0) throw "D는 0이 될 수 없습니다.";
+       const fnum = f / D;
+        result = `F-number (f/#): ${fnum.toFixed(2)}`;
+      } catch (e) {
+        result = `❌ 오류: ${e}`;
+      }
+      document.getElementById("fnumber-result").innerText = result;
+    }
+    function calcDOF() {
+      const f = parseFloat(document.getElementById('dof_f').value);
+     const N = parseFloat(document.getElementById('dof_N').value);
+     const c = parseFloat(document.getElementById('dof_c').value);
+     const s = parseFloat(document.getElementById('dof_s').value);
+
+     let result = '';
+      try {
+       if ([f, N, c, s].some(v => isNaN(v))) throw "값을 모두 입력하세요.";
+       const dof = (2 * N * c * s * s) / (f * f);
+       result = `계산된 피사계심도 (DOF): ${dof.toFixed(2)} mm`;
+     } catch (e) {
+        result = `❌ 오류: ${e}`;
+     }
+      document.getElementById('dof-result').innerText = result;
     }
   </script>
 </body>
